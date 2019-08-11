@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>App Tareas</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cyborg/bootstrap.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lobster&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/main.css')}}"
+    />
+  </head>
+  <body>
+    <main class="container p-4">
+      <h1 class="display-4 text-center mt-4 title">Tareas</h1>
+
+      <div class="row">
+        <div class="col-md-4 offset-md-4 my-auto">
+          <div class="card">
+            <div class="card-header">
+              <form action="/crear-tarea" method="POST">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    name="contenido"
+                    placeholder="Tarea"
+                    class="form-control"
+                    autofocus
+                  />
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">
+                  Guardar tarea
+                </button>
+              </form>
+            </div>
+            <div class="card-body">
+              <ul class="list-group">
+                {% for tarea in tareas %}
+                <li class="list-group-item">
+                  <span class="{% if tarea.done %} done {% endif %}">{{
+                    tarea.contenido
+                  }}</span>
+                  <a href="/done/{{ tarea.id }}" class="btn btn-success btn-sm"
+                    >Done</a
+                  >
+                  <a
+                    href="/eliminar/{{ tarea.id }}"
+                    class="btn btn-danger btn-sm"
+                    >Eliminar</a
+                  >
+                </li>
+                {% endfor%}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
